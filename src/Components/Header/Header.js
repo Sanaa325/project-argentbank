@@ -4,7 +4,9 @@ import argentBankLogo from "../../Assets/argentBankLogo.png";
 
 
 
+
 function Header() {
+  
   return (
     <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
@@ -17,6 +19,7 @@ function Header() {
       </Link>
       <div>
         <Link className="main-nav-item" to="/sign-in">
+        
           <i className="fa fa-user-circle" />
           Sign In
         </Link>

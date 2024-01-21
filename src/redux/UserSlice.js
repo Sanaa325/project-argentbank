@@ -1,70 +1,101 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import userService from "../server/services/userService.js";
 
 // Créez le thunk asynchrone fetchUserProfile pour récupérer le profil utilisateur de manière asynchrone
 export const fetchUserProfile = createAsyncThunk(
-    "user/fetchUserProfile",
-    async (_, { rejectWithValue }) => {
-      try {
-      // Envoie une requête POST avec les identifiants de l'utilisateur à l'API pour obtenir les détails du profil
-      const response = await fetch("http://localhost:3001/api/v1/user/profil", {
-        method: "GET",
+  "user/fetchUserProfile",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${sessionStorage.getItem("token")}`,
         },
       });
 
-      // Vérifie que la réponse est OK, sinon lance une erreur
       if (!response.ok) {
         throw new Error("Network response was not ok " + response.statusText);
       }
 
-      // Parse la réponse en JSON
       const data = await response.json();
-
-      // Retourne les données du profil utilisateur
       return data;
     } catch (error) {
-      // En cas d'erreur, renvoie le message d'erreur pour le gérer dans le slice
       return rejectWithValue(error.message);
     }
   }
 );
 
-// État initial du slice
+// Créez le thunk asynchrone updateUserProfile pour mettre à jour le nom d'utilisateur
+export const updateUserProfile = createAsyncThunk(
+  "user/updateUserProfile",
+  async (newUsername, { rejectWithValue, getState }) => {
+    try {
+      const token = getState().user.token;
+
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ username: newUsername }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const initialState = {
-  token: sessionStorage.getItem("token") || null, // Récupère le token du sessionStorage s'il existe, sinon attribue `null` comme valeur par défaut.
-  status: "idle", // status représente l'état actuel de la requête (idle, loading, succeeded, failed)
-  error: null, // error sera utilisé pour stocker tout message d'erreur renvoyé par l'API
+  token: sessionStorage.getItem("token") || null,
+  status: "idle",
+  error: null,
   profile: {},
 };
 
-// Création du slice avec createSlice
 const userSlice = createSlice({
-  name: "user", // Nom du slice
-  initialState, // État initial du slice
+  name: "user",
+  initialState,
   reducers: {
     resetUserState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserProfile.pending, (state) => {
-        state.status = "loading"; // Met à jour le statut lorsqu'une requête est en cours
+        state.status = "loading";
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Payload avec a une structure { status, message, body }
         state.token = action.payload.body.token;
-        state.profile = action.payload.body.profile;;
+        state.profile = action.payload.body;
+        console.log(state.profile)
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
-        state.status = "failed"; // Met à jour le statut en cas d'échec
-        state.error = action.error.message; // Stocke le message d'erreur
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        // Mettez à jour les données du profil utilisateur avec les nouvelles données si nécessaire
+        state.profile = { ...state.profile, username: action.payload.username };
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });
 
-// Exporte l'action pour réinitialiser l'état
 export const { resetUserState } = userSlice.actions;
-// Exporte le reducer pour être utilisé dans le store Redux
 export default userSlice.reducer;

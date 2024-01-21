@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUsername } from "../../redux/UserSlice";
+import { updateUserProfile } from "../../redux/UserSlice";
 
 function Form() {
   // Définition des états locaux pour chaque champ du formulaire
@@ -16,7 +16,7 @@ function Form() {
   // Gestionnaire d'événements pour la soumission du formulaire
   const handleSubmit = (e) => {
     e.preventDefault(); // Empêcher le rechargement de la page lors de la soumission du formulaire
-    dispatch(updateUsername(username)); // Dispatch de l'action avec le nouveau nom d'utilisateur
+    dispatch(updateUserProfile(username)); // Dispatch de l'action avec le nouveau nom d'utilisateur
   };
 
   return (
@@ -29,7 +29,7 @@ function Form() {
             type="text"
             id="username"
             name="username"
-            placeholder="Ben_hg"
+            placeholder="Enter new username"
             value={username}
             onChange={(e) => setUsername(e.target.value)} // Mise à jour de l'état local lors du changement de la valeur du champ
           />
@@ -40,7 +40,7 @@ function Form() {
             type="text"
             id="firstName"
             name="firstName"
-            placeholder="Ben"
+            placeholder="Your first name"
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)} // Mise à jour de l'état local lors du changement de la valeur du champ
           />
@@ -51,7 +51,7 @@ function Form() {
             type="text"
             id="lastName"
             name="lastName"
-            placeholder="Hong"
+            placeholder="Your last name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)} // Mise à jour de l'état local lors du changement de la valeur du champ
           />
