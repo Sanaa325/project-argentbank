@@ -1,9 +1,9 @@
 // Librairies
 import React from 'react';
-import './hero.css';
+import './banner.css';
 
 
-const Hero = () => {
+const Banner= () => {
   return (
       <div className="hero">
         <section className="hero-content">
@@ -17,4 +17,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Banner;

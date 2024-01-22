@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLogin } from "../../redux/LoginSlice";
 import { fetchUserProfile } from "../../redux/UserSlice"; // Importez le thunk pour récupérer le profil utilisateur
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
 function SignInContent() {
   const navigate = useNavigate();
@@ -33,7 +35,7 @@ function SignInContent() {
 
   return (
     <section className="sign-in-content">
-      <i className="fa fa-user-circle sign-in-icon"></i>
+      <FontAwesomeIcon icon={faUserCircle} />
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
         <div className="input-wrapper">

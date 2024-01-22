@@ -5,10 +5,10 @@ import { resetLoginState } from "../../redux/LoginSlice";
 import { resetUserState } from "../../redux/UserSlice";
 import Logo from "../../Assets/argentBankLogo.png";
 
-function CustomHeader() {
+function PersonalizedHeader() {
   const dispatch = useDispatch();
   // Utilisez useSelector pour obtenir le nom d'utilisateur depuis votre store Redux
-  const firstName = useSelector((state) => state.user.profile.firstName);
+  const userName = useSelector((state) => state.user.profile.userName);
 
   const handleSignOut = () => {
     sessionStorage.removeItem("token"); // supprime le token du sessionStorage
@@ -29,7 +29,7 @@ function CustomHeader() {
       <div>
         <Link className="main-nav-item" to="/user">
           <i className="fa fa-user-circle"></i>
-          {firstName ? firstName : "Profile"}{" "}
+          {userName ? userName : "Profile"}{" "}
           {/* Affichez le nom d'utilisateur s'il est disponible, sinon affichez "Profile" */}
         </Link>
         <Link className="main-nav-item" to="/" onClick={handleSignOut}>
@@ -41,4 +41,4 @@ function CustomHeader() {
   );
 }
 
-export default CustomHeader;
+export default PersonalizedHeader;

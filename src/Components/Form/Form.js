@@ -4,9 +4,10 @@ import { updateUserProfile } from "../../redux/UserSlice";
 
 function Form() {
   // Définition des états locaux pour chaque champ du formulaire
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const profile = useSelector((state) => state?.user?.profile);
+  const [username, setUsername] = useState(profile.userName);
+  const [firstName, setFirstName] = useState(profile.firstName);
+  const [lastName, setLastName] = useState(profile.lastName);
 
   // Récupération de la fonction dispatch et des états du slice depuis le store Redux
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ function Form() {
         </div>
         <div className="input-wrapper">
           <label htmlFor="firstName">First name: </label>
-          <input
+          <input disabled
             type="text"
             id="firstName"
             name="firstName"
@@ -47,7 +48,7 @@ function Form() {
         </div>
         <div className="input-wrapper">
           <label htmlFor="lastName">Last name:</label>
-          <input
+          <input disabled
             type="text"
             id="lastName"
             name="lastName"

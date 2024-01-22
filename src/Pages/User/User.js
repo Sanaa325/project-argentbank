@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '../../Components/Footer/Footer';
 import Account from '../../Components/Account/Account';
 import HeaderAccount from '../../Components/HeaderAccount/HeaderAccount';
-import CustomHeader from "../../Components/CustomHeader/CustomHeader";
+import PersonalizedHeader from "../../Components/PersonalizedHeader/PersonalizedHeader";
 
 
 
@@ -11,7 +11,7 @@ const User = () => {
     
     return (
         <>
-        <CustomHeader />
+        <PersonalizedHeader />
         
             <main className="main bg-dark">
                 

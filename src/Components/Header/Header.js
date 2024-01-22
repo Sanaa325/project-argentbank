@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import argentBankLogo from "../../Assets/argentBankLogo.png";
+
 
 
 
@@ -20,7 +23,7 @@ function Header() {
       <div>
         <Link className="main-nav-item" to="/sign-in">
         
-          <i className="fa fa-user-circle" />
+        <FontAwesomeIcon icon={faUserCircle} />
           Sign In
         </Link>
       </div>
