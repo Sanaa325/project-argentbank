@@ -7,11 +7,11 @@ import Logo from "../../Assets/argentBankLogo.png";
 
 function PersonalizedHeader() {
   const dispatch = useDispatch();
-  // Utilisez useSelector pour obtenir le nom d'utilisateur depuis votre store Redux
+  // Utilisez useSelector pour obtenir le nom d'utilisateur depuis Store
   const userName = useSelector((state) => state.user.profile.userName);
 
   const handleSignOut = () => {
-    sessionStorage.removeItem("token"); // supprime le token du sessionStorage
+    sessionStorage.removeItem("token"); // supprime token
     dispatch(resetLoginState()); // réinitialise l'état de login dans le store Redux
     dispatch(resetUserState());
   };
@@ -30,7 +30,7 @@ function PersonalizedHeader() {
         <Link className="main-nav-item" to="/user">
           <i className="fa fa-user-circle"></i>
           {userName ? userName : "Profile"}{" "}
-          {/* Affichez le nom d'utilisateur s'il est disponible, sinon affichez "Profile" */}
+          {/* Affichez le surnom s'il est disponible, sinon afficher lien "profile" */}
         </Link>
         <Link className="main-nav-item" to="/" onClick={handleSignOut}>
           <i className="fa fa-sign-out"></i>

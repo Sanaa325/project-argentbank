@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-// Créez le thunk asynchrone fetchUserProfile pour récupérer le profil utilisateur de manière asynchrone
-export const fetchUserProfile = createAsyncThunk(
+
+export const fetchUserProfile = createAsyncThunk(  // Thunk fetchUserProfile pour récupérer le profil utilisateur
   "user/fetchUserProfile",
   async (_, { rejectWithValue }) => {
     try {
@@ -25,8 +25,8 @@ export const fetchUserProfile = createAsyncThunk(
   }
 );
 
-// Créez le thunk asynchrone updateUserProfile pour mettre à jour le nom d'utilisateur
-export const updateUserProfile = createAsyncThunk(
+
+export const updateUserProfile = createAsyncThunk( // updateUserProfile pour mettre à jour le nom d'utilisateur
   "user/updateUserProfile",
   async (newUsername, { rejectWithValue, getState }) => {
     try {
@@ -86,15 +86,12 @@ const userSlice = createSlice({
       })
       .addCase(updateUserProfile.fulfilled, (state, action) => {
         state.status = "succeeded";
-        // Mettez à jour le nom d'utilisateur dans les données du profil utilisateur
         state.profile.userName = action.payload.body.userName;
-        // Mettez à jour le token après une mise à jour réussie du profil
         
       })
       .addCase(updateUserProfile.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
-        // Réinitialisez le token en cas d'échec de la mise à jour du profil
         state.token = null;
       });
   },
