@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { fetchLogin } from "../../redux/LoginSlice";
-import { fetchUserProfile } from "../../redux/UserSlice"; // Importez le thunk pour récupérer le profil utilisateur
+import { fetchUserProfile } from "../../redux/UserSlice"; // pour récuperation du profil user
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +28,7 @@ function SignInContent() {
 
   useEffect(() => {
     if (status === "succeeded") {
-      dispatch(fetchUserProfile()); // Récupérez le profil utilisateur après une connexion réussie
+      dispatch(fetchUserProfile()); 
       navigate("/user");
     }
   }, [status, navigate, dispatch]);
@@ -66,7 +66,7 @@ function SignInContent() {
           Sign In
         </button>
         {error && (
-          <div className="error-message">Email ou mot de passe incorrect</div>
+          <div>Votre email ou votre mot de passe est incorrect</div>
         )}
       </form>
     </section>
