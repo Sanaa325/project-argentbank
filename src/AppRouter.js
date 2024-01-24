@@ -12,6 +12,25 @@ import Error from "./Pages/Error/Error";
 import PrivateRoute from "./Components/PrivateRoute";
 
 
+function AppRouter() {
+        return (
 
+                <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/sign-in" element={<SignIn />} />
+                        <Route path="/user" element={
+                                <PrivateRoute>
+                                        <User />
+                                </PrivateRoute>
+                        }
+                        />
+                        <Route path='*' element={<Error />} />
+                </Routes>
+
+        );
+}
+
+
+export default AppRouter;
 
 
