@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import Form from "../Form/Form";
-import { useSelector } from "react-redux"; // importez useSelector
+import { useSelector } from "react-redux"; // Obtenir le nom d'utilisateur depuis store Redux
 
 function HeaderAccount() {
   const [isEditing, setIsEditing] = useState(false);
   const handleEditButtonClick = () => {
     setIsEditing((prevIsEditing) => !prevIsEditing);
   };
-  // Utilisez useSelector pour obtenir le nom d'utilisateur depuis votre store Redux
   const profile = useSelector((state) => state?.user?.profile);
   const temporaryState = useSelector((state) => state);
   console.log(temporaryState)
@@ -17,8 +16,7 @@ function HeaderAccount() {
       <h1>
         Welcome back
         <br />
-        {profile ? profile?.firstName+" " +profile?.lastName : "Profile"}{" "}
-        {/* Affichez le nom d'utilisateur s'il est disponible, sinon affichez "Profile" */}
+        {profile ? profile?.firstName+" " +profile?.lastName : "Profile"}{" "} 
       </h1>
       <button className="edit-button" onClick={handleEditButtonClick}>
         Edit Name
